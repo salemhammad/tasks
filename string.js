@@ -1,15 +1,5 @@
-var text = "word Is This";
-
-var lower = text.toLowerCase();
-var upper = text.toUpperCase();
-console.log(lower);
-console.log(upper);
-
-let split = text.split(" ");
-console.log(split);
-
 ///////////////////////
-
+/*
 const str = "WORD IS THIS";
 const toLowerCase = function () {
   let str = "";
@@ -25,3 +15,25 @@ const toLowerCase = function () {
 };
 String.prototype.toLowerCase = toLowerCase;
 console.log(str.toLowerCase());
+*/
+///////////////////
+function setValueToAcopy(obj, path, value) {
+  const copy = { ...obj };
+  const keys = path.split(".");
+  let current = copy;
+
+  for (let i = 0; i < keys.length - 1; i++) {
+    if (!(keys[i] in current)) {
+      current[keys[i]] = {};
+    }
+    current = current[keys[i]];
+  }
+
+  current[keys[keys.length - 1]] = value;
+  return copy;
+}
+
+let user = { id: 1 };
+let updatedUser = setValueToAcopy(user, "name", "tomatoo");
+console.log(updatedUser);
+console.log(user);

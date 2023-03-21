@@ -40,7 +40,7 @@ const User = [
     },
   },
 ];
-
+/*
 function condtionalMap(arr, condition, transform) {
   return arr.filter(condition).map(transform);
 }
@@ -64,8 +64,9 @@ const result = condtionalMap(
   }
 );
 console.log(result);
+*/
 //////
-
+/*
 function groupByLastName(arr, key) {
   return arr.reduce(function (arr, x) {
     (arr[x[key]] = arr[x[key]] || []).push(x);
@@ -75,8 +76,9 @@ function groupByLastName(arr, key) {
 
 const lastname = groupByLastName(User, "lastName");
 console.log(lastname);
+*/
 ////////////////
-
+/*
 function groupByLastNameAndCityName(arr, callback) {
   const result = {};
 
@@ -95,6 +97,50 @@ function groupByLastNameAndCityName(arr, callback) {
 const groupedByCityAndLastName = groupByLastNameAndCityName(
   User,
   (item) => item.lastName + item.address.city.name
+);
+
+console.log(groupedByCityAndLastName);
+*/
+
+///////////////////
+/*
+function groupBy(arr, getGroupName) {
+  const result = {};
+  arr.forEach((item) => {
+    const groupName = getGroupName(item) ;
+    if (!result[groupName]) {
+      result[groupName] = [];
+    }
+    result[groupName].push(item);
+  });
+  return result;
+}
+
+const groupedByCityAndLastName = groupBy(
+  User,
+  (item) => item.lastName + item.address.city.name
+);
+console.log(groupedByCityAndLastName);
+*/
+/////////////
+function groupBy(arr, getGroupName) {
+  const result = {};
+  arr.forEach((item) => {
+    const groupName =
+      typeof getGroupName === "function"
+        ? getGroupName(item)
+        : item[getGroupName];
+    if (!result[groupName]) {
+      result[groupName] = [];
+    }
+    result[groupName].push(item);
+  });
+  return result;
+}
+
+const groupedByCityAndLastName = groupBy(
+  User,
+  (item) => item.lastName + item.address.city.name || "lastName"
 );
 
 console.log(groupedByCityAndLastName);
